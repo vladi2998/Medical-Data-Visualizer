@@ -9,10 +9,15 @@ df = pd.read_csv(path)
 
 # Add 'overweight' column
 df['overweight'] = round(df['weight']/np.power(df['height']/100, 2), 1)
-
-# Normalize data by making 0 always good and 1 always bad. If the value of 'cholesterol' or 'gluc' is 1, make the value 0. If the value is more than 1, make the value 1.
 df.loc[df['overweight'] <= 25, 'overweight'] = 0
 df.loc[df['overweight'] > 25, 'overweight'] = 1
+
+# Normalize data by making 0 always good and 1 always bad. If the value of 'cholesterol' or 'gluc' is 1, make the value 0. If the value is more than 1, make the value 1.
+df.loc[df['cholesterol'] == 1, 'cholesterol'] = 0
+df.loc[df['cholesterol'] > 1, 'cholesterol'] = 1
+
+df.loc[df['gluc'] == 1, 'gluc'] = 0
+df.loc[df['gluc'] > 1, 'gluc'] = 1
 
 # Draw Categorical Plot
 def draw_cat_plot():
